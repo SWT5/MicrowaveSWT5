@@ -24,7 +24,7 @@ namespace MicrowaveOvenClasses.Boundary
 
         public void Start(int time)
         {
-            TimeRemaining = time;
+            TimeRemaining = time; //Måske et problem her, da vi blot indsætter 60 sekunder ind, men nede på linje 46 der dekrementerer vi med 1000 ad gangen. 
             timer.Enabled = true;
         }
 
