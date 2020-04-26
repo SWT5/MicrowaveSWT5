@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+//using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using Assert = NUnit.Framework.Assert;
 
 namespace Microwave.Test.Integration
 {
@@ -30,6 +33,39 @@ namespace Microwave.Test.Integration
             _display = new Display(_output);
 
             _uut = new CookController(_timer,_display, _powerTube, _userInterface);
+        }
+
+        [TestCase(1, 60)]
+        [TestCase(50, 60)]
+        [TestCase(99, 60)]
+        [TestCase(100, 60)]
+        //[TestCase(700, 60)]       //kig på opgaven - der står 700
+        public void CookCtrTurnOnPowerTube_TimeSixty(int power,int time)
+        {
+            _uut.StartCooking(power, time);
+            _output.Received().OutputLine($"PowerTube works with {power}");
+            _timer.Received().Start(time);
+        }
+
+
+        [TestCase(0, 0)]
+        [TestCase(-1, 0)]
+        [TestCase(101, 0)]
+        public void CookCtrTurnOnPowerTube_WrongPowerValue(int power, int time)
+        {
+            Assert.That(() => _uut.StartCooking(power, time), Throws.TypeOf<ArgumentOutOfRangeException>());
+        }
+
+
+        [TestCase(1, 60)]
+        [TestCase(50, 60)]
+        [TestCase(99, 60)]
+        [TestCase(100, 60)]
+        public void StartCooking_Twice(int power, int time)
+        {
+            _uut.StartCooking(power, time);
+            
+            Assert.That(()=> _uut.StartCooking(power, time), Throws.TypeOf<ApplicationException>());
         }
 
     }
