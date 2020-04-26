@@ -68,5 +68,15 @@ namespace Microwave.Test.Integration
             Assert.That(()=> _uut.StartCooking(power, time), Throws.TypeOf<ApplicationException>());
         }
 
+        //[TestCase(50, 60)]
+        //public void Startcooking_TurnOff_After_60Seconds(int power, int time)
+        //{
+        //    _uut.StartCooking(power, time);
+        //    _timer.TimeRemaining.Returns(time);
+        //    _timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+        //    _output.Received().OutputLine($"PowerTube turned off");
+        //}
+
+
     }
 }
