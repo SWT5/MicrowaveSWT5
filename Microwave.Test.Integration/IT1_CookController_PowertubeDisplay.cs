@@ -12,7 +12,7 @@ using Assert = NUnit.Framework.Assert;
 namespace Microwave.Test.Integration
 {
     [TestClass]
-    public class IT1_CookController_PowertubeLight
+    public class IT1_CookController_PowertubeDisplay
     {
         
         private IOutput _output;
