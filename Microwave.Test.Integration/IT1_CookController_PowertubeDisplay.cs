@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Timers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MicrowaveOvenClasses.Boundary;
@@ -32,10 +33,7 @@ namespace Microwave.Test.Integration
         public void SetUp()
         {
             _output = Substitute.For<IOutput>();
-            _userInterface =
-                Substitute
-                    .For<IUserInterface
-                    >(); // nødtil eller kan jeg ikke oprette en instans af cookController når vi deler dependencies op i flere steps? 
+            _userInterface = Substitute.For<IUserInterface>(); // nødtil eller kan jeg ikke oprette en instans af cookController når vi deler dependencies op i flere steps? 
             _timer = Substitute.For<ITimer>();
             _powerTube = new PowerTube(_output);
             _display = new Display(_output);
@@ -52,7 +50,7 @@ namespace Microwave.Test.Integration
         {
             _uut.StartCooking(power, time);
             _output.Received().OutputLine($"PowerTube works with {power}");
-            _timer.Received().Start(time);
+            _timer.Received().Start(time); // overflødig
         }
 
 
@@ -82,7 +80,7 @@ namespace Microwave.Test.Integration
             _uut.StartCooking(50, 60);
             _uut.Stop();
             _output.Received().OutputLine("PowerTube turned off");
-            _timer.Received().Stop();
+            _timer.Received().Stop();   // overflødig her 
         }
 
 
@@ -90,12 +88,12 @@ namespace Microwave.Test.Integration
 
         [TestCase(10,10)]
 
-        public void ShowTimeCorrectly(int min, int sec)
+        public void ShowTimeCorrectly(int pow, int time)
         {
-
-            _uut.StartCooking(min,sec);
+            _uut.StartCooking(pow,time);
+            _timer.TimeRemaining.Returns(time); // skal sætte stub korrekt op med fuld set up
             _timer.TimerTick += Raise.EventWith<EventArgs>(EventArgs.Empty);
-            _output.OutputLine($"Display shows: {min:D2}:{sec:D2}");
+            _output.Received().OutputLine($"Display shows: {(time/60):D2}:{(time % 60):D2}");
         }
 
 
