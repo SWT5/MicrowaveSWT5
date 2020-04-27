@@ -41,11 +41,10 @@ namespace Microwave.Test.Integration
             _uut = new CookController(_timer, _display, _powerTube, _userInterface);
         }
 
-        [TestCase(1, 60)]
+       
         [TestCase(50, 60)]
-        [TestCase(99, 60)]
-        [TestCase(100, 60)]
-        //[TestCase(700, 60)]       //kig på opgaven - der står 700
+        [TestCase(350, 60)]
+        [TestCase(700, 60)]
         public void CookCtrTurnOnPowerTube_TimeSixty(int power, int time)
         {
             _uut.StartCooking(power, time);
@@ -56,17 +55,17 @@ namespace Microwave.Test.Integration
 
         [TestCase(0, 0)]
         [TestCase(-1, 0)]
-        [TestCase(101, 0)]
+        [TestCase(701, 0)]
         public void CookCtrTurnOnPowerTube_WrongPowerValue(int power, int time)
         {
             Assert.That(() => _uut.StartCooking(power, time), Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
 
-        [TestCase(1, 60)]
         [TestCase(50, 60)]
-        [TestCase(99, 60)]
-        [TestCase(100, 60)]
+        [TestCase(150, 60)]
+        [TestCase(350, 60)]
+        [TestCase(700, 60)]
         public void StartCooking_Twice(int power, int time)
         {
             _uut.StartCooking(power, time);
