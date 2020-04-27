@@ -44,7 +44,6 @@ namespace Microwave.Test.Integration
         [TestCase(50, 60)]
         [TestCase(350, 60)]
         [TestCase(700, 60)]
-        //[TestCase(700, 60)]       //kig på opgaven - der står 700
         public void CookCtrTurnOnPowerTube_TimeSixty(int power, int time)
         {
             _uut.StartCooking(power, time);

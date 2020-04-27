@@ -27,8 +27,8 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void SetUp()
         {
-            _output = new Output();
-            _userInterface = Substitute.For<IUserInterface>();   // nødtil eller kan jeg ikke oprette en instans af cookController når vi deler dependencies op i flere steps? 
+            _output = Substitute.For<IOutput>();
+            _userInterface = Substitute.For<IUserInterface>();  
             _timer = new Timer();
             _powerTube = new PowerTube(_output);
             _display = new Display(_output);
@@ -43,13 +43,13 @@ namespace Microwave.Test.Integration
             Assert.That(_timer.TimeRemaining, Is.EqualTo(60));
         }
 
-        //[Test]
-        //public void CookController_stop()
-        //{
-        //    _uut.StartCooking(50,60);
-        //    _uut.Stop();
-        //    Assert.That(_timer.TimeRemaining, Is.EqualTo(0));
-        //}
+        [Test]
+        public void CookController_stop()
+        {
+            _uut.StartCooking(50, 60);
+            _uut.Stop();
+            Assert.That(_timer.TimeRemaining, Is.EqualTo(0));
+        }
 
     }
 
