@@ -90,5 +90,13 @@ namespace Microwave.Test.Integration
         }
 
 
+        [Test]
+        public void StopCooking()
+        {
+            _uut.StartCooking(50,60);
+            _uut.Stop();
+            _output.Received().OutputLine("PowerTube turned off");
+            _timer.Received().Stop();
+        }
     }
 }
