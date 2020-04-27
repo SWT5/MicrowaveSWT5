@@ -43,15 +43,13 @@ namespace Microwave.Test.Integration
             Assert.That(_timer.TimeRemaining, Is.EqualTo(60));
         }
 
-        [Test]
-        public void CookController_stop()
-        {
-            _uut.StartCooking(50,60);
-            _uut.Stop();
-            Assert.That(_timer.TimeRemaining, Is.EqualTo(0));
-        }
-
-
+        //[Test]
+        //public void CookController_stop()
+        //{
+        //    _uut.StartCooking(50,60);
+        //    _uut.Stop();
+        //    Assert.That(_timer.TimeRemaining, Is.EqualTo(0));
+        //}
 
     }
 
