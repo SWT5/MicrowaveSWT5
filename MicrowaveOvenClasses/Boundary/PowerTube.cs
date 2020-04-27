@@ -16,7 +16,7 @@ namespace MicrowaveOvenClasses.Boundary
 
         public void TurnOn(int power)
         {
-            if (power < 50 || 700 < power)
+            if (power < 50 || 700 < power)      // changed from 1||50 to 50||700
             {
                 throw new ArgumentOutOfRangeException($"power {power} Must be between 50 and 700 (incl.)");
             }
