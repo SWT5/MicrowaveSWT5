@@ -229,6 +229,18 @@ namespace Microwave.Test.Integration
 
         }
 
+
+        [Test]
+        public void UI_Display_OnDoorOpenedCancelPressedEvent_COOKING_STATE()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine($"Display cleared");
+        }
     }
 }
 
