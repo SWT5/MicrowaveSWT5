@@ -49,19 +49,41 @@ namespace Microwave.Test.Integration
         [Test]
         public void UI_DoorOpenedEvent_TurnOnLight_whenOpened()
         {
-            _door.Open(); //should call userInterface class
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
             _output.Received().OutputLine("Light is turned on");
         }
 
-        //[Test]
-        //public void UI_DoorOpenedEvent_TurnOnLight_()
-        //{
-        //    _door.Open(); //should call userInterface class
-        //    _output.OutputLine("Light is turned on");
-        //}
+        [Test]
+        public void UI_DoorOpenedEvent_TurnOnLight_()
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine("Light is turned on");
+            //_output.Received().OutputLine($"Display cleared");
+        }
+
+        [Test]
+        public void UI_DoorOpenedEvent_TurnOnLight_But_Cleared_display23213()
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine("Light is turned on");
+            //_output.Received().OutputLine($"Display cleared");
+        }
+
+
 
 
         /*----------   UI/Display     ----------------*/
+
+        [Test]
+        public void UI_DoorOpenedEvent_SetPower_ThenCleared_when_Opened()
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine($"Display cleared");
+        }
+
 
     }
 }
