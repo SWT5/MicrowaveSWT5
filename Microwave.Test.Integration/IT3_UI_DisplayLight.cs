@@ -84,6 +84,51 @@ namespace Microwave.Test.Integration
             _output.Received().OutputLine($"Display cleared");
         }
 
+        [Test]
+        public void UI_OnPowerPressedEvent_ShowPower_OnDisplay()
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine($"Display shows: {50} W");
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void UI_OnPowerPressedEvent_ShowPower_OnDisplay(int timespressed)
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            for (int i = 0; i < timespressed; i++)
+            {
+                _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            }
+            _output.Received().OutputLine($"Display shows: {(50+50*timespressed)} W");
+        }
+
+
+        [Test]
+        public void UI_OnTimePressedEvent_ShowTime_OnDisplay()
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine($"Display shows: {(60 / 60):D2}:{(60 % 60):D2}");
+
+        }
+
+        
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void UI_OnTimePressedEvent_ShowTime_OnDisplay(int timespressed)
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            for (int i = 0; i < timespressed; i++)
+            {
+                _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            }
+            _output.Received().OutputLine($"Display shows: {(60*timespressed /60):D2}:{(60 * timespressed % 60):D2}");
+
+        }
+
 
     }
 }
