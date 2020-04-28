@@ -18,7 +18,7 @@ namespace Microwave.Test.Integration
         private ICookController _cookController;
         private ITimer _timer;
         
-        private IUserInterface _userInterface;
+        private IUserInterface _uut;
         private IButton _powerButton;
         private IButton _timeButton;
         private IButton _startCancelButton;
@@ -28,29 +28,37 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void SetUp()
         {
+            //Fake dependencies
             _powerButton = Substitute.For<IButton>();
             _timeButton = Substitute.For<IButton>();
             _startCancelButton = Substitute.For<IButton>();
             _door = Substitute.For<IDoor>();
             _output = Substitute.For<IOutput>();
 
+            //Real modules included 
             _powerTube = new PowerTube(_output);
             _display = new Display(_output);
             _light = new Light(_output);
             _timer = new Timer();
-            _cookController = new CookController(_timer, _display, _powerTube, _userInterface);
-            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
+            _cookController = new CookController(_timer, _display, _powerTube, _uut);
+            _uut = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
         }
 
         /*----------   UI/Light     ----------------*/
 
         [Test]
-        public void UI_DoorOpenedEvent_TurnOnLight()
+        public void UI_DoorOpenedEvent_TurnOnLight_whenOpened()
         {
-
+            _door.Open(); //should call userInterface class
+            _output.Received().OutputLine("Light is turned on");
         }
 
-
+        //[Test]
+        //public void UI_DoorOpenedEvent_TurnOnLight_()
+        //{
+        //    _door.Open(); //should call userInterface class
+        //    _output.OutputLine("Light is turned on");
+        //}
 
 
         /*----------   UI/Display     ----------------*/
