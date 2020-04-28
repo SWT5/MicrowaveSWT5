@@ -217,6 +217,17 @@ namespace Microwave.Test.Integration
             _output.Received().OutputLine($"Display cleared");
         }
 
+        [Test]
+        public void UI_Display_CookingIsDone_Clear()
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            _uut.CookingIsDone();
+            _output.Received(1).OutputLine($"Display cleared");
+
+        }
 
     }
 }
