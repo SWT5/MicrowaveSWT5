@@ -119,13 +119,7 @@ namespace Microwave.Test.Integration
 
         /*----------   UI/Display     ----------------*/
 
-        [Test]
-        public void UI_DoorOpenedEvent_SetPower_ThenCleared_when_Opened()
-        {
-            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
-            _output.Received().OutputLine($"Display cleared");
-        }
+       
 
         [Test]
         public void UI_OnPowerPressedEvent_ShowPower_OnDisplay()
@@ -170,6 +164,47 @@ namespace Microwave.Test.Integration
             }
             _output.Received().OutputLine($"Display shows: {(60*timespressed /60):D2}:{(60 * timespressed % 60):D2}");
 
+        }
+
+        [Test]
+        public void UI_Display_OnStartCancelPressedEvent_SETPOWER_STATE()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine($"Display cleared");
+        }
+
+
+        [Test]
+        public void UI_Display_OnStartCancelPressedEvent_COOKING_STATE()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine($"Display cleared");
+        }
+
+
+        [Test]
+        public void UI_Display_DoorOpenedEvent_SETPOWER_STATE()
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine($"Display cleared");
+        }
+
+        [Test]
+        public void UI_Display_DoorOpenedEvent_SETTIME_STATE()
+        {
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine($"Display cleared");
         }
 
 

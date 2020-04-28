@@ -121,6 +121,7 @@ namespace MicrowaveOvenClasses.Controllers
                     break;
                 case States.COOKING:
                     myCooker.Stop();
+                    //myDisplay.Clear(); - ifølge sekvensdiagrammet skulle vi have en clear time ehr? 
                     powerLevel = 50;
                     time = 1;
                     myState = States.DOOROPEN;
