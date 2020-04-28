@@ -64,15 +64,18 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UI_DoorOpenedEvent_TurnOnLight_But_Cleared_display23213()
+        public void UI_DoorOpenedEvent_TurnOnLight_SetTime()
         {
-            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _door.Opened += Raise.EventWith(this, EventArgs.Empty);
             _output.Received().OutputLine("Light is turned on");
-            //_output.Received().OutputLine($"Display cleared");
         }
 
-
+        [Test]
+        public void UI_DoorOpenedEvent_TurnOnLight_StateCooking()
+        {
+            
+        }
 
 
         /*----------   UI/Display     ----------------*/
