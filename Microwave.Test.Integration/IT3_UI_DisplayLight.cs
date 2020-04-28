@@ -17,7 +17,7 @@ namespace Microwave.Test.Integration
         private ILight _light;
         private ICookController _cookController;
         private ITimer _timer;
-        
+
         private IUserInterface _uut;
         private IButton _powerButton;
         private IButton _timeButton;
@@ -41,7 +41,8 @@ namespace Microwave.Test.Integration
             _light = new Light(_output);
             _timer = new Timer();
             _cookController = new CookController(_timer, _display, _powerTube, _uut);
-            _uut = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
+            _uut = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light,
+                _cookController);
         }
 
         /*----------   UI/Light     ----------------*/
@@ -63,15 +64,18 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UI_DoorOpenedEvent_TurnOnLight_But_Cleared_display23213()
+        public void UI_DoorOpenedEvent_TurnOnLight_SetTime()
         {
-            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _door.Opened += Raise.EventWith(this, EventArgs.Empty);
             _output.Received().OutputLine("Light is turned on");
-            //_output.Received().OutputLine($"Display cleared");
         }
 
-
+        [Test]
+        public void UI_DoorOpenedEvent_TurnOnLight_StateCooking()
+        {
+            
+        }
 
 
         /*----------   UI/Display     ----------------*/
