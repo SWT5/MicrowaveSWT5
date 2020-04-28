@@ -17,7 +17,7 @@ namespace Microwave.Test.Integration
         private ILight _light;
         private ICookController _cookController;
         private ITimer _timer;
-        
+
         private IUserInterface _uut;
         private IButton _powerButton;
         private IButton _timeButton;
@@ -41,7 +41,8 @@ namespace Microwave.Test.Integration
             _light = new Light(_output);
             _timer = new Timer();
             _cookController = new CookController(_timer, _display, _powerTube, _uut);
-            _uut = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
+            _uut = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light,
+                _cookController);
         }
 
         /*----------   UI/Light     ----------------*/
@@ -83,7 +84,6 @@ namespace Microwave.Test.Integration
             _door.Opened += Raise.EventWith(this, EventArgs.Empty);
             _output.Received().OutputLine($"Display cleared");
         }
-
 
     }
 }
