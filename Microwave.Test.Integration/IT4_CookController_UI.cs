@@ -42,8 +42,7 @@ namespace Microwave.Test.Integration
             _display = new Display(_output);
             _light = new Light(_output);
             _timer = new Timer();
-            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light,
-                _uut);
+            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _uut);
             _uut = new CookController(_timer, _display, _powerTube, _userInterface);
         }
     }
