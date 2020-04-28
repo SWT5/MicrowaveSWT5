@@ -85,7 +85,7 @@ namespace Microwave.Test.Integration
 
         /*-------------------------Display-------------------------------*/
 
-        [TestCase(10,10)]
+        [TestCase(50,10)]
 
         public void ShowTimeCorrectly(int pow, int time)
         {
