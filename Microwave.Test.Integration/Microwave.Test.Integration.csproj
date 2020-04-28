@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IT2_CookController_Timer.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="IT3_UI_DisplayLight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IT1_CookController_PowertubeDisplay.cs" />
   </ItemGroup>
