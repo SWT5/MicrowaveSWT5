@@ -118,17 +118,18 @@ namespace Microwave.Test.Integration
         [Test]
         public void UI_Light_CookingIsDone_TurnOffLight()
         {
-            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
-            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
             _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            _output.Received().OutputLine("Light is turned off");
+            
+            _uut.CookingIsDone();
+            _output.Received(1).OutputLine("Light is turned off");
+
         }
 
         /*----------   UI/Display     ----------------*/
 
-       
+
 
         [Test]
         public void UI_OnPowerPressedEvent_ShowPower_OnDisplay()
