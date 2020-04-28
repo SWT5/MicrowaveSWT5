@@ -44,24 +44,51 @@ namespace Microwave.Test.Integration
             _display = new Display(_output);
             _light = new Light(_output);
             _timer = new Timer();
-            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _uut);
             _uut = new CookController(_timer, _display, _powerTube, _userInterface);
+            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light,
+                _uut);
+
         }
 
-        /*___________________________________________________*/
+        /*___________________CookControl/UI________________________________*/
 
-        [TestCase(5)]
-        public void CookControlUIOnTimeExpired(int sleep)
+        [Test]
+        public void CookControlUIOnTimeExpired()
         {
             _door.Opened += Raise.EventWith(this, EventArgs.Empty);
             _door.Closed += Raise.EventWith(this, EventArgs.Empty);
             _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            _timeButton.Pressed += Raise.EventWith(sleep, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            Thread.Sleep(60 * 1000 + 1000);
 
-            Thread.Sleep( sleep*1000 + 1000);  
-            _output.Received().OutputLine($"Display cleared");
+            _output.Received().OutputLine("Light is turned off");
         }
 
+        [Test]
+        public void CookControl_UI_OnStartCancelButtonPressed_StartCooking()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            _output.Received().OutputLine($"PowerTube works with {50}");
+
+        }
+
+        [Test]
+        public void CookControl_UI_OnDoorOpened_StopisCalled()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            Thread.Sleep(5 * 1000 + 1000);
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine($"PowerTube turned off");
+        }
     }
 }
