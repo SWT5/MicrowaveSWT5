@@ -48,14 +48,14 @@ namespace Microwave.Test.Integration
         /*----------   UI/Light     ----------------*/
 
         [Test]
-        public void UI_DoorOpenedEvent_TurnOnLight_whenOpened()
+        public void UI_DoorOpenedEvent_TurnOnLight_READY_state()
         {
             _door.Opened += Raise.EventWith(this, EventArgs.Empty);
             _output.Received().OutputLine("Light is turned on");
         }
 
         [Test]
-        public void UI_DoorOpenedEvent_TurnOnLight_()
+        public void UI_DoorOpenedEvent_TurnOnLight_SETPOWER_state()
         {
             _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _door.Opened += Raise.EventWith(this, EventArgs.Empty);
@@ -64,7 +64,7 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UI_DoorOpenedEvent_TurnOnLight_SetTime()
+        public void UI_DoorOpenedEvent_TurnOnLight_SETTIME_state()
         {
             _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             _door.Opened += Raise.EventWith(this, EventArgs.Empty);
@@ -72,10 +72,49 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UI_DoorOpenedEvent_TurnOnLight_StateCooking()
+        public void UI_DoorClosedEvent_TurnOffLight_READY_state()
         {
-            
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine("Light is turned off");
         }
+
+
+        [Test]
+        public void UI_OnStartCancelPressedEvent_SETPOWER_STATE()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine("Light is turned off");
+        }
+
+        [Test]
+        public void UI_OnStartCancelPressedEvent_SETTIME_STATE()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine("Light is turned on");
+        }
+
+
+        [Test]
+        public void UI_OnStartCancelPressedEvent_COOKING_STATE()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _output.Received().OutputLine("Light is turned off");
+        }
+
+
 
 
         /*----------   UI/Display     ----------------*/
